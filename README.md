@@ -201,11 +201,13 @@ La idea no es copiar el reporte completo, sino resumir las observaciones sobre l
 
 ### 5. Comparar costo total con perf stat
 
+> ⚠️ **Importante**: Ejecutar el comando `sudo sysctl -w kernel.perf_event_paranoid=-1` en la misma consola de trabajo antes de comenzar con los pasos siguientes. La consola solicitará una clave que se informará en clases
+
 Ahora usar la familia de binarios sin `-pg` para comparar tiempo y contadores de ejecución. Comenzar con el input aleatorio:
 
 ```bash
 for id in 001 002 003 004; do
-  perf stat ./profiling_${id}_perf < /tmp/random_20000.in \
+  /usr/lib/linux-tools-6.8.0-90/perf stat ./profiling_${id}_perf < /tmp/random_20000.in \
     > /dev/null 2> /tmp/perf_random_${id}.txt
 done
 ```
@@ -232,7 +234,7 @@ Repetir la misma comparación para el input con muchos repetidos:
 
 ```bash
 for id in 001 002 003 004; do
-  perf stat ./profiling_${id}_perf < /tmp/duplicates_20000.in \
+  /usr/lib/linux-tools-6.8.0-90/perf stat ./profiling_${id}_perf < /tmp/duplicates_20000.in \
     > /dev/null 2> /tmp/perf_duplicates_${id}.txt
 done
 ```
@@ -252,8 +254,8 @@ Preguntas para guiar la interpretación:
 Elegir uno de los programas que haya parecido más interesante en `perf stat` y generar un perfil más detallado:
 
 ```bash
-perf record -g ./profiling_003_perf < /tmp/random_20000.in > /dev/null
-perf report --stdio | head -n 40
+/usr/lib/linux-tools-6.8.0-90/perf record -g ./profiling_003_perf < /tmp/random_20000.in > /dev/null
+/usr/lib/linux-tools-6.8.0-90/perf report --stdio | head -n 40
 ```
 
 El flag `-g` agrega información de call graph. En el reporte interesa ubicar:
