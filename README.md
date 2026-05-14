@@ -343,12 +343,6 @@ callgrind_annotate /tmp/callgrind_002.out | head -n 40
 
 En Lubuntu, `callgrind_annotate` viene con `valgrind`, por lo que esta parte del desafío puede hacerse completamente desde terminal.
 
-Si además la máquina virtual tiene instalado `kcachegrind`, también se puede visualizar la salida con:
-
-```bash
-kcachegrind /tmp/callgrind_002.out
-```
-
 Comparar lo que muestra `callgrind` con lo observado en `gprof` y `perf`:
 
 - ¿Coinciden las funciones dominantes?
